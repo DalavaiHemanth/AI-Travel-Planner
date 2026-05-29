@@ -1,0 +1,46 @@
+meta {
+  name: Generate AI Itinerary (Groq)
+  type: http
+  seq: 5
+}
+
+post {
+  url: https://api.groq.com/openai/v1/chat/completions
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{GROQ_API_KEY}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "model": "llama-3.3-70b-versatile",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an expert travel planner. Create detailed, practical travel itineraries with realistic budget estimates. Always format your response with clear Day headers and organized sections."
+      },
+      {
+        "role": "user",
+        "content": "Create a 5-day travel itinerary for Japan.\n\nBudget: ₹{{BUDGET_INR}} INR total\nInterests: Anime, Food, Culture\n\nPlease provide:\n1. Day-wise detailed plan (Day 1, Day 2, etc.)\n2. Morning, Afternoon, Evening breakdown\n3. Estimated daily spending in both INR and local currency\n4. Specific restaurant/attraction recommendations\n5. Practical tips\n6. Budget assessment"
+      }
+    ],
+    "max_tokens": 2048,
+    "temperature": 0.7
+  }
+}
+
+docs {
+  # Generate AI Itinerary via Groq
+  
+  Uses {{GROQ_API_KEY}} from environment (set in Local Dev env).
+  Uses {{BUDGET_INR}} for budget in the prompt.
+  
+  Model: llama-3.3-70b-versatile (current Groq recommended model)
+}

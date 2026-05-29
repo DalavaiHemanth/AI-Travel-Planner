@@ -1,0 +1,35 @@
+meta {
+  name: Get Destination Images
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://api.unsplash.com/search/photos
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Client-ID {{UNSPLASH_ACCESS_KEY}}
+}
+
+query {
+  query: {{COUNTRY_NAME}} travel
+  per_page: 6
+  orientation: landscape
+}
+
+docs {
+  # Get Destination Images
+  
+  Uses {{UNSPLASH_ACCESS_KEY}} from environment (set in Local Dev env).
+  Uses {{COUNTRY_NAME}} as the search term.
+  
+  ## Key Response Fields
+  - `results[].urls.regular` — Full image URL
+  - `results[].urls.small` — Thumbnail
+  - `results[].alt_description` — Alt text
+  - `results[].user.name` — Photographer name
+  - `results[].links.html` — Unsplash attribution link (required!)
+}

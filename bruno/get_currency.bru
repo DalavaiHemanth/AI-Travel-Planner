@@ -1,0 +1,40 @@
+meta {
+  name: Get Currency Rates
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://open.er-api.com/v6/latest/INR
+  body: none
+  auth: none
+}
+
+docs {
+  # Get Currency Rates
+  
+  Fetches live exchange rates with INR as the base currency.
+  Free tier — no API key required.
+  
+  ## Response Structure
+  ```json
+  {
+    "result": "success",
+    "base_code": "INR",
+    "rates": {
+      "JPY": 1.68,
+      "USD": 0.012,
+      "EUR": 0.011,
+      ...
+    },
+    "time_last_update_utc": "..."
+  }
+  ```
+  
+  ## Usage
+  - Multiply the user's INR amount by `rates[target_currency]`
+  - e.g., 50000 INR × 1.68 = 84,000 JPY
+  
+  ## Change Base Currency
+  Replace `INR` in the URL with any ISO 4217 currency code.
+}

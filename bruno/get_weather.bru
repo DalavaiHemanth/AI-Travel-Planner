@@ -1,0 +1,31 @@
+meta {
+  name: Get Weather Forecast
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://api.open-meteo.com/v1/forecast
+  body: none
+  auth: none
+}
+
+query {
+  latitude: {{WEATHER_LAT}}
+  longitude: {{WEATHER_LON}}
+  current: temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m
+  daily: temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum
+  timezone: auto
+  forecast_days: 7
+}
+
+docs {
+  # Get Weather Forecast
+  
+  Uses {{WEATHER_LAT}} and {{WEATHER_LON}} from environment.
+  Default: Tokyo, Japan (35.6762, 139.6503)
+  
+  Update these coords after running Get Country Info to match your destination.
+  
+  No API key required.
+}

@@ -1,0 +1,33 @@
+meta {
+  name: Get Country Info
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://restcountries.com/v3.1/name/{{COUNTRY_NAME}}
+  body: none
+  auth: none
+}
+
+query {
+  fields: name,capital,population,languages,currencies,flags,latlng,region,timezones
+}
+
+docs {
+  # Get Country Info
+  
+  Fetches detailed information about a country by name.
+  Uses {{COUNTRY_NAME}} from environment (default: japan).
+  
+  ## Response Fields
+  - `name.common` — Country name
+  - `capital[0]` — Capital city
+  - `population` — Population count
+  - `languages` — Object of spoken languages
+  - `currencies` — Object with currency name and symbol
+  - `flags.svg` — Flag image URL
+  - `latlng` — [latitude, longitude] for weather lookup
+  - `region` — Geographic region
+  - `timezones` — List of timezone strings
+}
