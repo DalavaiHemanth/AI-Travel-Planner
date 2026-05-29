@@ -17,11 +17,14 @@ def get_secret(key: str, default: str = "") -> str:
     # Try Streamlit secrets first (works on Streamlit Cloud)
     try:
         import streamlit as st
-        val = st.secrets.get(key, "")
-        if val:
-            return str(val)
+        # st.secrets supports direct key access and has_key check
+        if hasattr(st, "secrets") and key in st.secrets:
+            val = st.secrets[key]
+            if val:
+                return str(val)
     except Exception:
         pass
 
     # Fall back to environment variable / .env file
-    return os.getenv(key, default)
+    val = os.getenv(key, default)
+    return val
