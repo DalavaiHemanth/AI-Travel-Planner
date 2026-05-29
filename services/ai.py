@@ -1,14 +1,11 @@
 """
 ai.py — Groq API wrapper for AI travel features.
 Endpoint: https://api.groq.com/openai/v1/chat/completions
-Requires GROQ_API_KEY in .env
+Requires GROQ_API_KEY in .env or Streamlit secrets.
 """
 
-import os
 import requests
-from dotenv import load_dotenv
-
-load_dotenv()
+from config import get_secret
 
 GROQ_BASE = "https://api.groq.com/openai/v1/chat/completions"
 OPENROUTER_BASE = "https://openrouter.ai/api/v1/chat/completions"
@@ -19,8 +16,8 @@ def _call_llm(messages: list[dict], max_tokens: int = 2048) -> str:
     """
     Call Groq or OpenRouter LLM. Tries Groq first, falls back to OpenRouter.
     """
-    groq_key = os.getenv("GROQ_API_KEY", "")
-    openrouter_key = os.getenv("OPENROUTER_API_KEY", "")
+    groq_key = get_secret("GROQ_API_KEY")
+    openrouter_key = get_secret("OPENROUTER_API_KEY")
 
     if groq_key and groq_key != "your_groq_api_key_here":
         try:

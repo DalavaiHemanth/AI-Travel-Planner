@@ -9,6 +9,7 @@ Run with:
 import os
 import streamlit as st
 from dotenv import load_dotenv
+from config import get_secret
 
 # Load environment variables
 load_dotenv()
@@ -120,8 +121,8 @@ with st.sidebar:
     st.divider()
     st.markdown("### 🔑 API Status")
 
-    groq_key = os.getenv("GROQ_API_KEY", "")
-    unsplash_key = os.getenv("UNSPLASH_ACCESS_KEY", "")
+    groq_key = get_secret("GROQ_API_KEY")
+    unsplash_key = get_secret("UNSPLASH_ACCESS_KEY")
 
     groq_ok = groq_key and groq_key != "your_groq_api_key_here"
     unsplash_ok = unsplash_key and unsplash_key != "your_unsplash_access_key_here"
