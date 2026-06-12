@@ -53,9 +53,9 @@ from components.itinerary_display import (
 )
 
 # ── Session State Init ───────────────────────────────────────────────────────
-for key in ["country_data", "weather_data", "images_data", "searched_destination", "destination_input", "search_btn"]:
+for key in ["country_data", "weather_data", "images_data", "searched_destination", "destination_input"]:
     if key not in st.session_state:
-        st.session_state[key] = "Japan" if key == "destination_input" else (False if key == "search_btn" else None)
+        st.session_state[key] = "Japan" if key == "destination_input" else None
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
@@ -70,7 +70,6 @@ with st.sidebar:
 
     destination = st.text_input(
         "Destination",
-        value=st.session_state.destination_input,
         placeholder="e.g. Japan, France, Thailand",
         help="Enter any country or city name",
         key="destination_input",
@@ -112,7 +111,6 @@ with st.sidebar:
 
     search_btn = st.button(
         "🔍 Plan My Trip",
-        key="search_btn",
         use_container_width=True,
         type="primary",
     )
@@ -177,7 +175,6 @@ if not st.session_state.searched_destination:
         with ex_cols[i]:
             if st.button(f"{flag} {country}", key=f"ex_{country}", use_container_width=True):
                 st.session_state.destination_input = country
-                st.session_state.search_btn = True
                 st.rerun()
 
 # ── Main Content: Triggered on Search ────────────────────────────────────────
